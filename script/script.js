@@ -174,44 +174,44 @@ nav.addEventListener("mouseout", function (e) {
   handleHover(e, 1);
 });
 
-document.getElementById("btnGet").addEventListener("click", function () {
-  $.get(
-    "http://www.liulongbin.top:3006/api/getbooks",
-    { id: 1 },
-    function (res) {
-      console.log(res);
-    }
-  );
-});
+// document.getElementById("btnGet").addEventListener("click", function () {
+//   $.get(
+//     "http://www.liulongbin.top:3006/api/getbooks",
+//     { id: 1 },
+//     function (res) {
+//       console.log(res);
+//     }
+//   );
+// });
 
-document.getElementById("btnPost").addEventListener("click", function () {
-  $.post(
-    "http://www.liulongbin.top:3006/api/addbook",
-    { bookname: "水浒传", author: "施耐庵", publisher: "天津图书出版社" },
-    function (res) {
-      console.log(res);
-    }
-  );
-});
+// document.getElementById("btnPost").addEventListener("click", function () {
+//   $.post(
+//     "http://www.liulongbin.top:3006/api/addbook",
+//     { bookname: "水浒传", author: "施耐庵", publisher: "天津图书出版社" },
+//     function (res) {
+//       console.log(res);
+//     }
+//   );
+// });
 
-document.getElementById("btnAjaxGet").addEventListener("click", function () {
-  $.ajax({
-    type: "get",
-    url: "http://www.liulongbin.top:3006/api/getbooks",
+// document.getElementById("btnAjaxGet").addEventListener("click", function () {
+//   $.ajax({
+//     type: "get",
+//     url: "http://www.liulongbin.top:3006/api/getbooks",
 
-    success: function (res) {
-      console.log(res);
-    },
-  });
-});
+//     success: function (res) {
+//       console.log(res);
+//     },
+//   });
+// });
 
-document.getElementById("btnAjaxPost").addEventListener("click", function () {
-  $.ajax({
-    type: "post",
-    url: "http://www.liulongbin.top:3006/api/addbook",
-    data: { bookname: "鹿鼎记", author: "", publisher: "天津图书出版社" },
-    success: function (res) {
-      console.log(res);
-    },
-  });
-});
+// document.getElementById("btnAjaxPost").addEventListener("click", function () {
+//   $.ajax({
+//     type: "post",
+//     url: "http://www.liulongbin.top:3006/api/addbook",
+//     data: { bookname: "鹿鼎记", author: "", publisher: "天津图书出版社" },
+//     success: function (res) {
+//       console.log(res);
+//     },
+//   });
+// });
