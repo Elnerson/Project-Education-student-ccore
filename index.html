@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="img/icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Education</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <img
+          src="img/logo.png"
+          alt="Education logo"
+          class="nav__logo"
+          id="logo"
+        />
+        <ul class="nav__links">
+          <li class="nav__item">
+            <a class="nav__link" href="#section--1">Section1</a>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="#section--2">section2</a>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link nav__link--btn btn--show-modal" href="#"
+              >Log-in</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header__title">
+        <h1>
+          Join
+          <!-- Green highlight effect -->
+          <span class="highlight">Education</span>
+          to<br />
+          <span class="highlight">learn more.</span>
+        </h1>
+        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+        <button class="btn--text btn--scroll-to">Learn more &DownArrow;</button>
+        <img src="img/hero.png" class="header__img" alt="Education items" />
+      </div>
+    </header>
+
+    <section class="section" id="section--1">
+      <div class="section__title">
+        <h2 class="section__description">Features</h2>
+        <h3 class="section__header">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </h3>
+      </div>
+
+      <div class="features">
+        <img
+          src="img/digital-lazy.jpg"
+          data-src="img/digital.jpg"
+          alt="Computer"
+          class="features__img lazy-img"
+        />
+        <div class="features__feature">
+          <div class="features__icon">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-monitor"></use>
+            </svg>
+          </div>
+          <h5 class="features__header">Feature</h5>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde alias
+            sint quos? Accusantium a fugiat porro reiciendis saepe quibusdam
+            debitis ducimus.
+          </p>
+        </div>
+
+        <div class="features__feature">
+          <div class="features__icon">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-trending-up"></use>
+            </svg>
+          </div>
+          <h5 class="features__header">Feature</h5>
+          <p>
+            Nesciunt quos autem dolorum voluptates cum dolores dicta fuga
+            inventore ab? Nulla incidunt eius numquam sequi iste pariatur
+            quibusdam!
+          </p>
+        </div>
+        <img
+          src="img/grow-lazy.jpg"
+          data-src="img/grow.jpg"
+          alt="Plant"
+          class="features__img lazy-img"
+        />
+
+        <img
+          src="img/card-lazy.jpg"
+          data-src="img/card.jpg"
+          alt="Credit card"
+          class="features__img lazy-img"
+        />
+        <div class="features__feature">
+          <div class="features__icon">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-credit-card"></use>
+            </svg>
+          </div>
+          <h5 class="features__header">Feature</h5>
+          <p>
+            Quasi, fugit in cumque cupiditate reprehenderit debitis animi enim
+            eveniet consequatur odit quam quos possimus assumenda dicta fuga
+            inventore ab.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="section--2">
+      <div class="section__title">
+        <h2 class="section__description">Title</h2>
+        <h3 class="section__header">
+          Everything as simple as possible, but no simpler.
+        </h3>
+      </div>
+
+      <div class="operations">
+        <div class="operations__tab-container">
+          <button
+            class="btn operations__tab operations__tab--1 operations__tab--active"
+            data-tab="1"
+          >
+            <span>01</span>Title
+          </button>
+          <button class="btn operations__tab operations__tab--2" data-tab="2">
+            <span>02</span>Title
+          </button>
+          <button class="btn operations__tab operations__tab--3" data-tab="3">
+            <span>03</span>Title
+          </button>
+        </div>
+        <div
+          class="operations__content operations__content--1 operations__content--active"
+        >
+          <div class="operations__icon operations__icon--1">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-upload"></use>
+            </svg>
+          </div>
+          <h5 class="operations__header">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit
+          </h5>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+        </div>
+
+        <div class="operations__content operations__content--2">
+          <div class="operations__icon operations__icon--2">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-home"></use>
+            </svg>
+          </div>
+          <h5 class="operations__header">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit
+          </h5>
+          <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
+          </p>
+        </div>
+        <div class="operations__content operations__content--3">
+          <div class="operations__icon operations__icon--3">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-user-x"></use>
+            </svg>
+          </div>
+          <h5 class="operations__header">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit
+          </h5>
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <ul class="footer__nav">
+        <li class="footer__item">
+          <a class="footer__link" href="#">About</a>
+        </li>
+        <li class="footer__item">
+          <a class="footer__link" href="#">Pricing</a>
+        </li>
+        <li class="footer__item">
+          <a class="footer__link" href="#">Terms of Use</a>
+        </li>
+        <li class="footer__item">
+          <a class="footer__link" href="#">Privacy Policy</a>
+        </li>
+        <li class="footer__item">
+          <a class="footer__link" href="#">Careers</a>
+        </li>
+        <li class="footer__item">
+          <a class="footer__link" href="#">Blog</a>
+        </li>
+        <li class="footer__item">
+          <a class="footer__link" href="#">Contact Us</a>
+        </li>
+      </ul>
+      <img src="img/logo.png" alt="Logo" class="footer__logo" />
+      <p class="footer__copyright">
+        &copy; Copyright by
+        <a
+          class="footer__link twitter-link"
+          target="_blank"
+          href="https://twitter.com/"
+          >Elnerson Loh</a
+        >
+      </p>
+    </footer>
+
+    <div class="modal hidden">
+      <button class="btn--close-modal">&times;</button>
+      <div class="sign-in">
+        <h2 class="modal__header">
+          let's <span class="highlight">Log-in</span><br />to get started
+        </h2>
+        <div class="modal__message modal__message-error"></div>
+        <form class="modal__form">
+          <div class="modal__form-input-group">
+            <input
+              type="text"
+              class="modal__input"
+              autofocus
+              placeholder="Username"
+            />
+            <div class="modal__input-error-message"></div>
+          </div>
+          <div class="modal__form-input-group">
+            <input
+              type="password"
+              class="modal__input"
+              autofocus
+              placeholder="Password"
+            />
+            <div class="modal__input-error-message"></div>
+          </div>
+        </form>
+        <p class="form__text">
+          <a class="form__link" href="./" id="linkCreateAccount"
+            >Don't have an account? Create account</a
+          >
+        </p>
+        <button class="btn btn--login">Login &rarr;</button>
+      </div>
+      <div class="sign-up container--hidden">
+        <h2 class="modal__header">
+          let's <span class="highlight">sign-up</span><br />
+        </h2>
+        <div class="modal__message modal__message-error"></div>
+        <form class="modal__form">
+          <div class="modal__form-input-group">
+            <input
+              type="text"
+              class="modal__input"
+              autofocus
+              placeholder="Username"
+              required
+            />
+            <div class="modal__input-error-message"></div>
+          </div>
+          <div class="modal__form-input-group">
+            <input
+              type="password"
+              class="modal__input"
+              autofocus
+              placeholder="Password"
+              required
+            />
+            <div class="modal__input-error-message"></div>
+          </div>
+          <div class="modal__form-input-group">
+            <input
+              type="password"
+              class="modal__input"
+              autofocus
+              placeholder="Confirm Password"
+              required
+            />
+            <div class="modal__input-error-message"></div>
+          </div>
+          <div class="modal__form-input-group">
+            <input
+              type="text"
+              class="modal__input"
+              autofocus
+              placeholder="First Name"
+              required
+            />
+            <div class="modal__input-error-message"></div>
+          </div>
+          <div class="modal__form-input-group">
+            <input
+              type="text"
+              class="modal__input"
+              autofocus
+              placeholder="Last Name"
+              required
+            />
+            <div class="modal__input-error-message"></div>
+          </div>
+          <div class="modal__form-input-group">
+            <input
+              type="email"
+              class="modal__input"
+              autofocus
+              placeholder="Email (Optional)"
+            />
+            <div class="modal__input-error-message"></div>
+          </div>
+        </form>
+        <p class="form__text">
+          <a class="form__link" href="./" id="linkLogin"
+            >Already have an account? Sign in</a
+          >
+        </p>
+        <button class="btn btn--login">Register &rarr;</button>
+      </div>
+    </div>
+    <div class="overlay hidden"></div>
+    <button id="btnGet">Get Request</button>
+    <button id="btnPost">Post Request</button>
+    <button id="btnAjaxGet">Ajax Get</button>
+    <button id="btnAjaxPost">Ajax Post</button>
+
+    <!-- 
+      <div class="container">
+      <form class="form" id="login">
+          <h1 class="form__title">Login</h1>
+          <div class="form__message form__message--error"></div>
+          <div class="form__input-group">
+              <input type="text" class="form__input" autofocus placeholder="Username or email">
+              <div class="form__input-error-message"></div>
+          </div>
+          <div class="form__input-group">
+              <input type="password" class="form__input" autofocus placeholder="Password">
+              <div class="form__input-error-message"></div>
+          </div>
+          <button class="form__button" type="submit">Continue</button>
+          <p class="form__text">
+              <a href="#" class="form__link">Forgot your password?</a>
+          </p>
+          <p class="form__text">
+              <a class="form__link" href="./" id="linkCreateAccount">Don't have an account? Create account</a>
+          </p>
+      </form>
+      <form class="form form--hidden" id="createAccount">
+          <h1 class="form__title">Create Account</h1>
+          <div class="form__message form__message--error"></div>
+          <div class="form__input-group">
+              <input type="text" id="signupUsername" class="form__input" autofocus placeholder="Username">
+              <div class="form__input-error-message"></div>
+          </div>
+          <div class="form__input-group">
+              <input type="text" class="form__input" autofocus placeholder="Email Address">
+              <div class="form__input-error-message"></div>
+          </div>
+          <div class="form__input-group">
+              <input type="password" class="form__input" autofocus placeholder="Password">
+              <div class="form__input-error-message"></div>
+          </div>
+          <div class="form__input-group">
+              <input type="password" class="form__input" autofocus placeholder="Confirm password">
+              <div class="form__input-error-message"></div>
+          </div>
+          <button class="form__button" type="submit">Continue</button>
+          <p class="form__text">
+              <a class="form__link" href="./" id="linkLogin">Already have an account? Sign in</a>
+          </p>
+      </form>
+  </div> 
+-->
+
+    <script src="./script/script.js"></script>
+    <script src="./lib/jquery.js"></script>
+  </body>
+</html>
