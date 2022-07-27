@@ -1,0 +1,381 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #444;
+  background-color: #f3f3f3;
+  height: 100vh;
+  padding: 2rem;
+  overflow: scroll;
+}
+
+/* .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 9rem;
+  width: 100%;
+  padding: 0 6rem;
+  z-index: 100;
+}
+
+.nav.sticky {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.logo {
+  height: 4.5rem;
+  transition: all 0.3s;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.nav__item {
+  margin-left: 4rem;
+} */
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.welcome {
+  font-size: 1.9rem;
+  font-weight: 500;
+}
+
+.logo {
+  height: 5.25rem;
+}
+
+.btn--sort:hover,
+.btn--sort:focus {
+  outline: none;
+  color: #777;
+}
+
+#logout {
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s;
+}
+
+.logout-btn:link {
+  padding: 0.8rem 2.5rem;
+  border-radius: 3rem;
+  background-color: #dcf328;
+  color: #222;
+}
+
+.logout-btn:hover,
+.logout-btn:active {
+  color: inherit;
+  background-color: #e8da16;
+  color: #333;
+}
+
+/* MAIN */
+.app {
+  position: relative;
+  max-width: 120rem;
+  margin: 4rem auto;
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  grid-template-rows: auto repeat(2, 25rem) auto;
+  gap: 1.5rem;
+  transition: all 1s;
+}
+
+.class {
+  grid-column: 1 / span 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.class__label {
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin-bottom: -0.2rem;
+}
+
+.class__date {
+  font-size: 1.4rem;
+  color: #888;
+}
+
+.class__value {
+  font-size: 4.5rem;
+  font-weight: 400;
+}
+
+/* Students Record */
+.studentsframe {
+  grid-row: 2 / span 2;
+  background-color: #fff;
+  border-radius: 1rem;
+}
+
+.students {
+  overflow: auto;
+  max-height: 44.5rem;
+}
+
+.students_del {
+  margin-left: 25px;
+  margin-right: 20px;
+}
+
+.students__rowTag {
+  padding: 2.25rem 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.students__nameTag {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #666;
+}
+
+.students__valueTag {
+  font-size: 1.5rem;
+  margin-left: auto;
+}
+
+.students__row {
+  padding: 2.25rem 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.students__type {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #fff;
+  padding: 0.1rem 1rem;
+  border-radius: 10rem;
+  margin-right: 3rem;
+}
+
+.students__name {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #666;
+  width: 8rem;
+}
+
+.students__type1 {
+  background-image: linear-gradient(to top left, #39b385, #9be15d);
+}
+
+.students__type2 {
+  background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+}
+
+.students__value {
+  font-size: 1.5rem;
+  margin-inline: auto;
+}
+
+/* SUMMARY */
+.summary {
+  grid-row: 5 / 6;
+  display: flex;
+  align-items: baseline;
+  padding: 0 0.3rem;
+  /* margin-top: 0.5rem; */
+}
+
+.summary__label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-right: 0.8rem;
+}
+
+.summary__value {
+  font-size: 2.2rem;
+  margin-right: 2.5rem;
+}
+
+.summary__value--totalStudents,
+.summary__value--totalSubject,
+.summary__value--AverageSore {
+  color: #66c873;
+}
+
+.summary__value-- {
+  color: #f5465d;
+}
+
+.addnewstudents {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #fff;
+  padding: 0.1rem 1rem;
+  border-radius: 10rem;
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.addnewstudents {
+  /* background-image: linear-gradient(to top left, rgb(101, 187, 227), yellow); */
+  background-color: red;
+}
+
+.btn--sort {
+  margin-left: auto;
+  border: none;
+  background: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Chart */
+.chartcontainer {
+  border-radius: 1rem;
+  padding: 3rem 4rem;
+  color: #333;
+  height: 515px;
+}
+
+#chart_childcontainer {
+  height: 450px;
+}
+
+.chart--subject {
+  background-image: linear-gradient(to top left, #ffb003, #ffcb03);
+}
+
+/* .chart {
+  background-image: linear-gradient(to top left, #39b385, #9be15d);
+} */
+
+.chart--overall {
+  background-image: linear-gradient(to top left, #39b385, #9be15d);
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #333;
+}
+
+form {
+  display: grid;
+  gap: 0.4rem 1rem;
+}
+
+.addnewstudentITF {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60rem;
+  background-color: #f3f3f3;
+  padding: 5rem 6rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.5s;
+  text-align: center;
+  /* background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  padding: 6rem;
+  border-radius: 10px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  overflow: scroll; */
+}
+
+.hidden {
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5; */
+}
+
+.stop-scroll {
+  height: 100%;
+  padding: 0%;
+  margin: 0%;
+  overflow: hidden;
+}
+
+.close__btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
+  font-size: 5rem;
+  color: grey;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.addstudent__btn {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  font-size: 2.5rem;
+  color: grey;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.close__btn:hover,
+.addstudent__btn:hover {
+  color: black;
+}

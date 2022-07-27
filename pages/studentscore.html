@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="static/layui/src/css/layui.css">
+    <link rel="stylesheet" href="static/css/studentscorestyle.css" />
+    <title>Students Record</title>
+  </head>
+  <body id="appBody">
+    <!-- TOP NAVIGATION -->
+    <nav class="nav">
+      <!-- <img
+          src="static/img/logo.png"
+          alt="Education logo"
+          class="logo"
+          id="logo"
+        />
+        <div><p class="welcome"></p></div>
+        <ul class="nav__links">
+          <li class="nav__item">
+            <a class="nav__link" href="#section--1">Section1</a>
+          </li>
+          <li id="logout">
+            <a class="nav__link nav__link--btn logout" href="#"
+              >Logout</a
+            >
+          </li>
+        </ul> -->
+      <img src="static/img/logo.png" alt="Logo" class="logo" />
+      <p class="welcome"></p>
+      <div id="logout">
+        <a class="layui-btn layui-btn-radius layui-btn-warm logout">Logout</a>
+      </div>
+    </nav>
+    <main class="app">
+      <!-- Class -->
+      <div class="class">
+        <div>
+          <p class="class__label">Class A1</p>
+          <p class="class__date">
+            Date : <span class="date">05/03/2037</span>
+          </p>
+        </div>
+        <!-- <p class="class__value">></p> -->
+      </div>
+
+      <!-- Students -->
+        <div class="studentsframe">
+            <div class="students__rowTag">
+                <button class="addnewstudents addnewstudents__btn">+</button>
+                <div class="students__nameTag">Full Name</div>
+                <div class="students__valueTag">English</div>
+                <div class="students__valueTag">Chinese</div>
+                <div class="students__valueTag">Science</div>
+                <div class="students__valueTag">Maths</div>
+                <div class="students__valueTag">Physics</div>
+                <div class="students__valueTag">Action</div>
+            </div>
+            <div class="students" id="students">
+            </div>
+        </div>
+
+      <!-- SUMMARY -->
+      <div class="summary">
+        <p class="summary__label">Total Students</p>
+        <p class="summary__value summary__value--totalStudents">0</p>
+        <p class="summary__label">Total Subject</p>
+        <p class="summary__value summary__value--totalSubject">0</p>
+        <!-- <p class="summary__label">Average Score</p>
+        <p class="summary__value summary__value--AverageScore">0</p> -->
+      </div>
+
+      <div class="chartcontainer chart--subject">
+        <!-- <h2>Subject Chart</h2> -->
+        <div id="chart_childcontainer"></div>
+      </div>
+
+      <!-- Chart -->
+      <!-- <div class="chartcontainer chart">
+      <h2>Request</h2>
+      </div> -->
+
+      <!-- Overall Student Score -->
+      <!-- <div class="chartcontainer chart--overall">
+        <h2>Overall Student Score</h2>
+        
+      </div> -->
+
+      <div class="addnewstudentITF hidden">
+        <button class="close__btn">&times;</button>
+        <div id="imageframe">
+        </div>
+          <h1 class="addnewstudents_label">Student information:</h1>
+          <div id="addNewStudentContainer">
+            <form class="layui-form">
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-username"></i>
+                <input
+                  type="text"
+                  name="firstname"
+                  placeholder="First Name"
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-username"></i>
+                <input
+                  type="text"
+                  name="lastname"
+                  placeholder="Last Name"
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-password"></i>
+                <input
+                  type="text"
+                  name="studentcode"
+                  placeholder="Student No."
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-password"></i>
+                <input
+                  type="number"
+                  name="age"
+                  placeholder="Age"
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-password"></i>
+                <input
+                  type="number"
+                  name="english"
+                  placeholder="English Score"
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-password"></i>
+                <input
+                  type="number"
+                  name="chinese"
+                  placeholder="Chinese Score"
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-password"></i>
+                <input
+                  type="number"
+                  name="science"
+                  placeholder="Science Score"
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-password"></i>
+                <input
+                  type="number"
+                  name="maths"
+                  placeholder="Maths Score"
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <div class="layui-form-item modal__form-input-group">
+                <i class="layui-icon layui-icon-password"></i>
+                <input
+                  type="number"
+                  name="physics"
+                  placeholder="Physics Score"
+                  autocomplete="off"
+                  lay-verify="required"
+                  class="layui-input modal__input"
+                />
+              </div>
+              <button
+                type="submit"
+                class="layui-btn layui-btn-radius addstudent__btn"
+                lay-submit=""
+                lay-filter="addStudent"
+              >
+                ADD
+              </button>
+            </form>
+          </div>
+            <!-- <form action="" >
+                <div class="addNewStudent__container">
+                    <h3 class="addNewStudent_label">Basic information</h3>
+                    <div class="addNewStudentChild__container">
+                      <label class="studentinfo">Full name :</label>
+                      <input type="text" class="basicinput studentName" name="name" required>
+                    </div>
+                    <div class="addNewStudentChild__container">
+                      <label class="studentinfo">Age :</label>
+                      <input type="number" class="basicinput studentAge" name="age">
+                    </div>
+                </div>
+                <div class="addNewStudent__container1">
+                    <h3 class="addNewStudent_label">Subject score</h3>
+                    <div>
+                      <label class="subjectinfo students__subject">English :</label>
+                      <input type="number" class="scoreinput English-Score" name="English-Score" min="0" max="100" maxlength="3" required onchange="handleChange(this)">
+                    </div>
+                    <div>
+                      <label class="subjectinfo students__subject">Chinese :</label>
+                      <input type="number" class="scoreinput Chinese-Score" name="Chinese-Score" min="0" max="100" maxlength="3" required onchange="handleChange(this)">
+                    </div>
+                    <div>
+                      <label class="subjectinfo students__subject">Science :</label>
+                      <input type="number" class="scoreinput Science-Score" name="Science-Score" min="0" max="100" maxlength="3" required onchange="handleChange(this)">
+                    </div>
+                    <div>
+                      <label class="subjectinfo students__subject">Maths :</label>
+                      <input type="number" class="scoreinput Maths-Score" name="Maths-Score" min="0" max="100" maxlength="3" required onchange="handleChange(this)">
+                    </div>
+                    <div>
+                      <label class="subjectinfo students__subject">Physics :</label>
+                      <input type="number" class="scoreinput Physics-Score" name="Physics-Score" min="0" max="100" maxlength="3" required onchange="handleChange(this)">
+                </div>  
+                </div> 
+            </form> -->
+            <!-- <input type="submit" value="ADD" class="addstudent__btn"/> -->
+        </div>
+
+    </main>
+    <div class="overlay hidden"></div>
+    <script src="/static/layui/src/layui.all.js"></script>
+    <script src="/static/lib/jquery.js"></script>
+    <script src="static/js/studentscore.js"></script>
+    <script src="/static/js/util.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  </body>
+</html>
