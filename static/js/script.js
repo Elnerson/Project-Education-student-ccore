@@ -3,107 +3,9 @@
 const body = document.querySelector("body");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
-const btnCloseModal = document.querySelector(".btn--close-modal");
-const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
 const btnScrollTo = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector("#section--1");
 const nav = document.querySelector(".nav");
-const login = document.querySelector(".sign-in");
-const signup = document.querySelector(".sign-up");
-
-const openModal = function (e) {
-  e.preventDefault();
-  modal.classList.remove("hidden");
-  overlay.classList.remove("hidden");
-  body.style.overflow = "hidden";
-};
-
-const closeModal = function () {
-  modal.classList.add("hidden");
-  overlay.classList.add("hidden");
-  login.classList.remove("container--hidden");
-  signup.classList.add("container--hidden");
-  body.style.overflow = "scroll";
-};
-
-function setFormMessage(formElement, type, message) {
-  const messageElement = formElement.querySelector(".modal__message");
-
-  messageElement.textContent = message;
-  messageElement.classList.remove(
-    "modal__message--success",
-    "modal__message--error"
-  );
-  messageElement.classList.add(`form__message--${type}`);
-}
-
-function setInputError(inputElement, message) {
-  inputElement.classList.add("modal__input--error");
-  inputElement.parentElement.querySelector(
-    ".modal__input-error-message"
-  ).textContent = message;
-}
-
-function clearInputError(inputElement) {
-  inputElement.classList.remove("modal__input--error");
-  inputElement.parentElement.querySelector(
-    ".modal__input-error-message"
-  ).textContent = "";
-}
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const loginForm = document.getElementById("login");
-
-//   loginForm.addEventListener("submit", (e) => {
-//     e.preventDefault();
-
-//     // Perform your AJAX/Fetch login
-
-//     setFormMessage(loginForm, "error", "Invalid username/password combination");
-//   });
-
-//   document.querySelectorAll(".modal__input").forEach((inputElement) => {
-//     inputElement.addEventListener("blur", (e) => {
-//       if (
-//         e.target.id === "signupUsername" &&
-//         e.target.value.length > 0 &&
-//         e.target.value.length < 10
-//       ) {
-//         setInputError(
-//           inputElement,
-//           "Username must be at least 10 characters in length"
-//         );
-//       }
-//     });
-
-//     inputElement.addEventListener("input", (e) => {
-//       clearInputError(inputElement);
-//     });
-//   });
-// });
-
-document.getElementById("linkCreateAccount").addEventListener("click", (e) => {
-  e.preventDefault();
-  login.classList.add("container--hidden");
-  signup.classList.remove("container--hidden");
-});
-
-document.getElementById("linkLogin").addEventListener("click", (e) => {
-  e.preventDefault();
-  login.classList.remove("container--hidden");
-  signup.classList.add("container--hidden");
-});
-
-btnsOpenModal.forEach((btn) => btn.addEventListener("click", openModal));
-
-btnCloseModal.addEventListener("click", closeModal);
-overlay.addEventListener("click", closeModal);
-
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-    closeModal();
-  }
-});
 
 btnScrollTo.addEventListener("click", function (e) {
   const s1coords = section1.getBoundingClientRect();
@@ -125,15 +27,6 @@ btnScrollTo.addEventListener("click", function (e) {
     behavior: "smooth",
   });
 });
-
-// document.querySelectorAll(".nav__link").forEach(function (el) {
-//   el.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     const id = this.getAttribute("href");
-//     console.log(id);
-//     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
-//   });
-// });
 
 document.querySelector(".nav__links").addEventListener("click", function (e) {
   e.preventDefault();
@@ -205,10 +98,78 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 
 headerObserver.observe(header);
 
+// Lazy loading images
+const imgTargets = document.querySelectorAll("img[data-src]");
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+
+  // Replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener("load", function () {
+    entry.target.classList.remove("lazy-img");
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: "200px",
+});
+
+imgTargets.forEach((img) => imgObserver.observe(img));
+
+//Login & Sign up
+const login = document.querySelector(".sign-in");
+const signup = document.querySelector(".sign-up");
+const btnCloseModal = document.querySelector(".btn--close-modal");
+const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
+const openModal = function (e) {
+  e.preventDefault();
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+  body.style.overflow = "hidden";
+};
+
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+  login.classList.remove("container--hidden");
+  signup.classList.add("container--hidden");
+  body.style.overflow = "scroll";
+};
+
+document.getElementById("linkCreateAccount").addEventListener("click", (e) => {
+  e.preventDefault();
+  login.classList.add("container--hidden");
+  signup.classList.remove("container--hidden");
+});
+
+document.getElementById("linkLogin").addEventListener("click", (e) => {
+  e.preventDefault();
+  login.classList.remove("container--hidden");
+  signup.classList.add("container--hidden");
+});
+
+btnsOpenModal.forEach((btn) => btn.addEventListener("click", openModal));
+
+btnCloseModal.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+    closeModal();
+  }
+});
+
 layui.use(["form"], function () {
   var form = layui.form,
     layer = layui.layer;
-
   //Field validation
   form.verify({
     username: function (value) {

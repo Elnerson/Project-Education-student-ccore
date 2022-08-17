@@ -3,6 +3,7 @@ const request = (options) => {
     $.ajax({
       url: options.url,
       type: options.type ? options.type : "get",
+      headers: options.headers ? options.headers : "",
       contentType: "application/json",
       data: options.data,
       success: (res) => {

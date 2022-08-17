@@ -43,8 +43,8 @@ router.post("/login", async (req, resp) => {
   let json = req.body;
   // console.log(json.username);
   const u = await user.login(json);
-  const usr = { ...u, password: "", lastname: "" };
   if (u != null) {
+    const usr = { ...u, password: "", lastname: "" };
     const token = jwt.sign(usr, config.jwtSecretKey, {
       expiresIn: config.expiresIn,
     });
@@ -71,11 +71,6 @@ router.post("/register", (req, resp) => {
   };
   let userdata = user.add(d);
   resp.send(Resp.success(userdata));
-});
-
-//logout
-router.get("/logout", (req, resp) => {
-  resp.send(Resp.success(null));
 });
 
 module.exports = router;

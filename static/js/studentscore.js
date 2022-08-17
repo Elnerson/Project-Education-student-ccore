@@ -1,247 +1,263 @@
 "use strict";
 
+const updateUI = function () {
+  getStudent();
+  studentChart();
+};
+
+//Get Student Info
 const containerStudents = document.querySelector(".students");
 const studentsdiv = document.getElementById("students");
-const logoutdiv = document.getElementById("logout");
-
-// receive student info
-$(function () {
-  const token = localStorage.getItem("token");
-  $.ajaxSetup({ header: { Authorization: token } });
-  function getStudent() {
-    $.get("/apiAuth/getStudentInfo", (res) => {
-      if (res.code !== 200) return alert("Invalid student data");
+function getStudent() {
+  $.ajax({
+    url: "/apiAuth/getStudentInfo",
+    type: "get",
+    contentType: "application/json",
+    headers: { Authorization: localStorage.getItem("token") || "" },
+    success: (res) => {
+      if (res.code !== 200) return alert("Unable to receive student data");
       containerStudents.innerHTML = "";
       $.each(res.data, function (i, std) {
         const html =
           `
-        <div class="students__row">
-           <div class="students__type students__type1">${i + 1}</div>
-           <div class="students__name">${std.firstname}</br> ${
-            std.lastname
-          }</div>
-           <div class="students__value">${std.english}</div>
-           <div class="students__value">${std.chinese}</div>
-           <div class="students__value">${std.science}</div> 
-           <div class="students__value">${std.maths}</div>
-           <div class="students__value">${std.physics}</div>
-           <div class="students_del"><a href="javascript:;" class="del" data-id="` +
+      <div class="students__row">
+         <div class="students__type students__type1">${i + 1}</div>
+         <div class="students__name">${std.firstname}</br> ${std.lastname}</div>
+         <div class="students__value">${std.english}</div>
+         <div class="students__value">${std.chinese}</div>
+         <div class="students__value">${std.science}</div> 
+         <div class="students__value">${std.maths}</div>
+         <div class="students__value">${std.physics}</div>
+         <div class="students_del"><a href="javascript:;" class="del" data-id="` +
           std.id +
-          `">Del</a></div>
-       </div>`;
+          `"><i class="layui-icon layui-icon-delete"></i> </a></div>
+     </div>`;
         containerStudents.insertAdjacentHTML("beforeend", html);
       });
       document.querySelector(
         ".summary__value--totalStudents"
       ).textContent = `${res.data.length}`;
-    });
-  }
+    },
+  });
+}
+getStudent();
 
-  getStudent();
+// Delete student
+$(function () {
   $(studentsdiv).on("click", ".del", function () {
     const id = $(this).attr("data-id");
     const data = `{"id": "${id}"}`;
-    // const data = JSON.parse(myJSON);
-    request({ url: "/apiAuth/delStudent", type: "post", data }).then((res) => {
-      console.log("====>", res);
-      alert(`Student Deleted`);
-      getStudent();
-    });
+    layer.confirm(
+      "Confirm Delete?",
+      { btn: ["Yes", "No"], icon: 3, title: "Alert", shadeClose: true },
+      function (index) {
+        // const data = JSON.parse(myJSON);
+        request({
+          url: "/apiAuth/delStudent",
+          type: "post",
+          data,
+          headers: { Authorization: localStorage.getItem("token") },
+        }).then((res) => {
+          console.log("====>", res);
+          layer.msg(`Student Deleted`);
+          updateUI();
+        });
+        layer.close(index);
+      }
+    );
     return false;
   });
+});
 
-  $(logoutdiv).on("click", ".logout", function () {
-    console.log("click");
-    $.get("/api/logout", (res) => {
-      console.log("====>", res);
+//User data
+const labelWelcome = document.querySelector(".welcome");
+function getCurentUserInfo() {
+  $.ajax({
+    url: "/apiAuth/currentUserInfo",
+    type: "get",
+    contentType: "application/json",
+    headers: { Authorization: localStorage.getItem("token") || "" },
+    success: (res) => {
+      if (res.code !== 200) return alert("Unable to receive User data");
+      renderAvatar(res.data[0]);
+    },
+  });
+}
+getCurentUserInfo();
+
+function renderAvatar(user) {
+  const firstname = user.firstname;
+  const lastname = user.lastname;
+
+  labelWelcome.textContent = `Welcome back ${firstname}`;
+  document.querySelector(".username").textContent = `${firstname} ${lastname}`;
+  if (user.avatar_pic !== null) {
+    $(".userimg").attr("src", user.avatar_pic).show();
+    $(".userimg_large").attr("src", user.avatar_pic).show();
+    $(".text-avatar").hide();
+  } else {
+    const first = firstname[0].toUpperCase();
+    $("userimg").hide();
+    $(".text-avatar").html(first).show();
+  }
+}
+
+//Student Chart
+const studentChart = function () {
+  const studentName = [];
+  const subjectData = [];
+  $.ajax({
+    type: "get",
+    url: "/apiAuth/getStudentInfo",
+    headers: { Authorization: localStorage.getItem("token") || "" },
+    success: function (res) {
+      const englsihSubjectScore = [];
+      const chineseSubjectScore = [];
+      const scienceSubjectScore = [];
+      const mathsSubjectScore = [];
+      const physicsSubjectScore = [];
+      if (res.code !== 200) return alert("Unable Receive Data");
+      $.map(res.data, (std, i, arr) => {
+        const name = std.firstname;
+        studentName.push(name);
+      });
+      $.map(res.data, (std, i, arr) => {
+        englsihSubjectScore.push(std.english);
+        chineseSubjectScore.push(std.chinese);
+        scienceSubjectScore.push(std.science);
+        mathsSubjectScore.push(std.maths);
+        physicsSubjectScore.push(std.physics);
+      });
+      const english = { name: "English", data: englsihSubjectScore };
+      const chinese = { name: "Chinese", data: chineseSubjectScore };
+      const science = { name: "Science", data: scienceSubjectScore };
+      const maths = { name: "Maths", data: mathsSubjectScore };
+      const physics = { name: "Physics", data: physicsSubjectScore };
+      subjectData.push(english, chinese, science, maths, physics);
+
+      Highcharts.chart("chart_childcontainer", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: "Subject & Score",
+        },
+        xAxis: {
+          categories: studentName,
+        },
+        yAxis: {
+          title: {
+            text: "Score",
+          },
+        },
+        series: subjectData,
+      });
+      document.querySelector(".summary__value--totalSubject").textContent =
+        subjectData.length;
+    },
+  });
+};
+studentChart();
+
+//Logout
+const logout = document.querySelector(".logout");
+logout.addEventListener("click", function () {
+  layer.confirm(
+    "Confirm Logout?",
+    { btn: ["Yes", "No"], icon: 3, title: "Alert", shadeClose: true },
+    function (index) {
+      localStorage.removeItem("token");
       layer.msg(`Logout Successful`);
       setTimeout(function () {
         location.href = "/";
       }, 500);
-    });
-    return false;
-  });
 
-  const studentName = [];
-  function chartData() {
-    $.get("/apiAuth/getStudentInfo", function (res) {
-      if (res.code !== 200) return alert("Unable Receive Data");
-      $.map(res.data, function (std, i, arr) {
-        const name = std.firstname + " " + std.lastname;
-        studentName.push(name);
-      });
-      console.log(studentName);
-    });
-  }
-  chartData();
+      layer.close(index);
+    }
+  );
 });
-
-const student1 = {
-  name: "Lucas",
-  age: 7,
-  score: {
-    English: 98,
-    Chinese: 88,
-    Science: 78,
-    Math: 100,
-    Physics: 51,
-  },
-};
-
-const student2 = {
-  name: "June",
-  age: 7,
-  score: {
-    English: 90,
-    Chinese: 68,
-    Science: 100,
-    Math: 78,
-    Physics: 89,
-  },
-};
-
-const student3 = {
-  name: "Xiao Ming",
-  age: 7,
-  score: {
-    English: 100,
-    Chinese: 99,
-    Science: 78,
-    Math: 88,
-    Physics: 68,
-  },
-};
-
-const subjects = {
-  1: "English",
-  2: "Chinese",
-  3: "Science",
-  4: "Maths",
-  5: "Phaysics",
-};
-
-// Chart Data
-const students = [student1, student2, student3];
-
-let studentData = [];
-students.map((std, i, arr) => {
-  const name = std.name;
-  const data = Object.values(std.score);
-  const studentdatas = { name, data };
-  // console.log(Object.keys(studentdatas));
-  studentData.push(studentdatas);
-});
-
-const subjectsarr = Object.values(subjects);
 
 // Elements
-const labelWelcome = document.querySelector(".welcome");
 const labelDate = document.querySelector(".date");
-const labelSubject = document.querySelector(".summary__value--totalSubject");
-
+// const labelSubject = document.querySelector(".summary__value--totalSubject");
 const body = document.getElementById("appBody");
 const containerApp = document.querySelector(".app");
 
+//Show Add New Student interface
 const addNewStudentITF = document.querySelector(".addnewstudentITF");
-const addNewStudentOverlay = document.querySelector(".overlay");
-
-const btnLogin = document.querySelector(".login__btn");
-
-const btnSort = document.querySelector(".btn--sort");
-const btnAddNewStudent = document.querySelector(".addnewstudents__btn");
-const btnCloseAddStudent = document.querySelector(".close__btn");
+const Overlay = document.querySelector(".overlay");
 const btnAddStudents = document.querySelector(".addstudent__btn");
-
-const calcDisplaySummary = function (stds) {
-  const totalstudents = stds.reduce((acc, _, i, arr) => acc + i, 0);
-  console.log(totalstudents);
-  labelTotalStudents.textContent = `${totalstudents}`;
-  // stds.forEach((std, i, arr) => {
-  //   const value = Object.values(std.score);
-  //   const sum = value.reduce((acc, value) => acc + value, 0);
-  // });
-};
-
-const displayTotalSubject = function () {
-  let totalSubject = subjectsarr.length;
-  labelSubject.textContent = totalSubject;
-};
-
-document.addEventListener("DOMContentLoaded", function () {
-  Highcharts.chart("chart_childcontainer", {
-    chart: {
-      type: "column",
-    },
-    title: {
-      text: "Subject & Score",
-    },
-    xAxis: {
-      categories: subjectsarr,
-    },
-    yAxis: {
-      title: {
-        text: "Score",
-      },
-    },
-    series: studentData,
-  });
-});
-
-const updateUI = function (std) {
-  //Display students
-  displayStudents(std);
-  //Display summary
-  calcDisplaySummary(std);
-  //Display Total Subject
-  displayTotalSubject();
-  //Display Chart
-  displayChart();
-};
-
-// btnAddStudents.addEventListener("click", function (e) {
-//   e.preventDefault();
-//   let name = inputStudentName.value;
-//   let age = Number(inputStudentAge.value);
-//   let score = {
-//     English: Number(inputEglishScore.value),
-//     Chinese: Number(inputChineseScore.value),
-//     Science: Number(inputScienceScore.value),
-//     Math: Number(inputMathsScore.value),
-//     Physics: Number(inputPhysicsScore.value),
-//   };
-
-//   const student4 = { name, age, score };
-//   console.log(student4);
-//   students.push(student4);
-//   alert("Added successfuly");
-//   hideITF();
-//   updateUI(students);
-// });
-
-const handleChange = function (input) {
-  if (Number(input.value) > 100) input.value = 100;
-  if (Number(input.value) <= 0) input.value = 0;
-};
-
-btnAddNewStudent.addEventListener("click", function (e) {
-  e.preventDefault();
+const showAddNewStudentITF = function () {
   addNewStudentITF.classList.remove("hidden");
-  addNewStudentOverlay.classList.remove("hidden");
+  Overlay.classList.remove("hidden");
   body.style.overflow = "hidden";
-});
+};
 
-const hideITF = function () {
+//Student Score input limiter
+function limiter(input) {
+  if (input.value < 0) input.value = 0;
+  if (input.value > 100) input.value = 100;
+}
+
+//Close Add New Student interface
+const hideAddNewStudentITF = function () {
+  const input = document.querySelectorAll(".layui-input");
   addNewStudentITF.classList.add("hidden");
-  addNewStudentOverlay.classList.add("hidden");
+  Overlay.classList.add("hidden");
   body.style.overflow = "scroll";
-  // inputStudentName.value =
-  //   inputStudentAge.value =
-  //   inputChineseScore.value =
-  //   inputEglishScore.value =
-  //   inputScienceScore.value =
-  //   inputMathsScore.value =
-  //   inputPhysicsScore.value =
-  //     "";
+  [].forEach.call(input, (i) => {
+    i.value = "";
+  });
+};
+
+//Open Change Password interface
+const changePwITF = document.querySelector(".changePasswordITF");
+const showPasswordITF = function () {
+  changePwITF.classList.remove("hidden");
+  Overlay.classList.remove("hidden");
+  body.style.overflow = "hidden";
+};
+
+//Close Change Password interface
+const hideChangePwITF = function () {
+  const input = document.querySelectorAll(".layui-input");
+  changePwITF.classList.add("hidden");
+  Overlay.classList.add("hidden");
+  body.style.overflow = "scroll";
+  [].forEach.call(input, (i) => {
+    i.value = "";
+  });
+};
+
+//Open Change Profile Image interface
+const changeAvatarITF = document.querySelector(".changeAvatarITF");
+const showChangeAvatarITF = function () {
+  changeAvatarITF.classList.remove("hidden");
+  // changeAvatarITF.style.visibility = "visible";
+  Overlay.classList.remove("hidden");
+  body.style.overflow = "hidden";
+};
+
+//Close Change Profile Image interface
+const hideChangeAvatarITF = function () {
+  const changeAvatarContainer = document.getElementById(
+    "changeAvatarContainer"
+  );
+  const profileImage = document.querySelector(".profileImg");
+  const btnRow = document.querySelector(".row2");
+  changeAvatarITF.classList.add("hidden");
+  Overlay.classList.add("hidden");
+  body.style.overflow = "scroll";
+  changeAvatarContainer.classList.add("hidden");
+  btnRow.classList.add("hidden");
+  profileImage.classList.remove("hidden");
+};
+
+//Overlay controller
+const overlayClick = function () {
+  hideAddNewStudentITF();
+  hideChangePwITF();
+  hideChangeAvatarITF();
 };
 
 document.addEventListener("keydown", function (press) {
@@ -249,14 +265,20 @@ document.addEventListener("keydown", function (press) {
     press.key === "Escape" &&
     !addNewStudentITF.classList.contains("hidden")
   ) {
-    hideITF();
+    hideAddNewStudentITF();
+    body.style.overflow = "scroll";
+  }
+  if (press.key === "Escape" && !changePwITF.classList.contains("hidden")) {
+    hideChangePwITF();
+    body.style.overflow = "scroll";
+  }
+  if (press.key === "Escape" && !changeAvatarITF.classList.contains("hidden")) {
+    hideChangeAvatarITF();
     body.style.overflow = "scroll";
   }
 });
 
-btnCloseAddStudent.addEventListener("click", hideITF);
-addNewStudentOverlay.addEventListener("click", hideITF);
-
+//Add Student form listen
 layui.use(["form"], function () {
   var form = layui.form,
     layer = layui.layer;
@@ -268,17 +290,67 @@ layui.use(["form"], function () {
         return "Username too short";
       }
     },
+
+    newPassword: function (value) {
+      if (!/^[\S]{6,12}$/.test(value)) {
+        return "New password must be 6~12 character and space is not allowed";
+      }
+    },
+    newPassword2: function (value) {
+      if (value != form.val("changePWform").newPassword) {
+        return "Confirm password did not match";
+      }
+    },
   });
 
   //Add Student button listening
   form.on("submit(addStudent)", function (info) {
-    const data = JSON.stringify(info.field);
-    request({ url: "/apiAuth/addstudent", type: "post", data }).then((res) => {
-      if ((res.code = 200)) {
-        // console.log("====>", res);
-        layer.msg("Student Added");
+    layer.confirm(
+      "Confirm Add?",
+      { btn: ["Yes", "No"], icon: 3, title: "Alert", shadeClose: true },
+      function (index) {
+        const data = JSON.stringify(info.field);
+        request({
+          url: "/apiAuth/addstudent",
+          type: "post",
+          data,
+          headers: { Authorization: localStorage.getItem("token") },
+        }).then((res) => {
+          if ((res.code = 200)) {
+            layer.msg("Student Added");
+            hideITF();
+            updateUI();
+          }
+        });
+        layer.close(index);
       }
-    });
+    );
+    return false;
+  });
+
+  form.on("submit(changePassword)", function (info) {
+    layer.confirm(
+      "Confirm Change?",
+      { btn: ["Yes", "No"], icon: 3, title: "Alert", shadeClose: true },
+      function (index) {
+        const data = JSON.stringify(info.field);
+        request({
+          url: "/apiAuth/updatePassword",
+          type: "post",
+          data,
+          headers: { Authorization: localStorage.getItem("token") },
+        }).then((res) => {
+          if ((res.code = 200)) {
+            layer.msg("Password Changed successfully.</br> Please login again");
+            localStorage.removeItem("token");
+            setTimeout(function () {
+              location.href = "/";
+            }, 800);
+          }
+          layer.close(index);
+        });
+      }
+    );
     return false;
   });
 });
